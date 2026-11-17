@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Báo Cáo Thực Hành JavaScript - Nguyễn Phúc Như</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Tinh chỉnh giao diện thẻ Lab và hệ thống nút bấm gọn gàng, hiện đại */
+    .labs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.25rem;
+    }
+
+    .lab-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .lab-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    .lab-tag {
+      display: inline-block;
+      background: #eff6ff;
+      color: #2563eb;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 0.75rem;
+    }
+
+    .lab-card h3 {
+      font-size: 1.15rem;
+      color: #1e293b;
+      margin-bottom: 0.5rem;
+    }
+
+    .lab-card p {
+      font-size: 0.9rem;
+      color: #64748b;
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Lưới nút bấm chia 3 cột đều nhau bên trong mỗi Card */
+    .lab-links {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      padding-top: 1rem;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    .btn-lab {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 8px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-align: center;
+      text-decoration: none;
+      color: #334155;
+      background-color: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-lab:hover {
+      background-color: #2563eb;
+      color: #ffffff;
+      border-color: #2563eb;
+    }
+
+    /* Nổi bật riêng nút Exercise ở cuối mỗi bài Lab */
+    .btn-exercise {
+      grid-column: span 3;
+      background-color: #eff6ff;
+      color: #1d4ed8;
+      border-color: #bfdbfe;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .btn-exercise:hover {
+      background-color: #1d4ed8;
+      color: #ffffff;
+      border-color: #1d4ed8;
+    }
+    <style>
+  /* Căn chỉnh khung thông tin cá nhân gọn gàng, ảnh nằm góc trái */
+  .profile-card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  /* Thu nhỏ ảnh thẻ thành hình vuông bo góc (hoặc tròn) gọn trong 1 góc */
+  .profile-avatar {
+    width: 96px;
+    height: 96px;
+    object-fit: cover;       /* Giữ đúng tỉ lệ khuôn mặt, không bị bóp méo */
+    object-position: top;    /* Ưu tiên lấy phần đầu và khuôn mặt của ảnh thẻ */
+    border-radius: 12px;     /* Đổi thành 50% nếu bạn thích khung hình tròn */
+    border: 2px solid #e2e8f0;
+    flex-shrink: 0;          /* Ngăn ảnh bị ép nhỏ lại khi chữ bên cạnh dài */
+  }
+</style>
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- 3.1 Thông tin cá nhân -->
+    <header class="profile-card">
+      <img src="image/ảnh thẻ (1).jpg" alt="Avatar" class="profile-avatar" id="user-avatar">
+      <div class="profile-info">
+        <h1 id="user-name">Nguyễn Phúc Như</h1>
+        <p class="subtitle">Phát triển ứng dụng Thương mại điện tử - Chương 4: JavaScript</p>
+        <div class="profile-meta">
+          <span>MSSV: <strong id="user-mssv">31241023813</strong></span>
+          <span>Lớp: <strong id="user-class">ST5-N1.401</strong></span>
+          <span>Giảng viên: <strong>TS. Nguyễn Mạnh Tuấn</strong></span>
+        </div>
+        <a href="https://github.com/nguyenphucnhu06vlg/PTUD_NguyenPhucNhu" target="_blank" class="btn-github" id="user-github">
+          <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+          </svg>
+          GitHub Profile
+        </a>
+      </div>
+    </header>
+
+    <!-- 3.2 Giới thiệu bài thực hành -->
+    <section class="section">
+      <h2 class="section-title">📌 Giới thiệu bài thực hành</h2>
+      <p>
+        Trong khuôn khổ môn học <strong>Phát triển ứng dụng Thương mại Điện tử</strong>, chuỗi 03 bài Lab (Lab 08, Lab 09, Lab 10) giúp sinh viên nắm vững nền tảng ngôn ngữ JavaScript, cách truy xuất và điều khiển mô hình DOM (Document Object Model), xử lý các sự kiện tương tác của người dùng, cũng như sử dụng thư viện phổ biến <strong>jQuery</strong> để xây dựng giao diện hiện đại, tối ưu trải nghiệm và thao tác xử lý dữ liệu động.
+      </p>
+      <p style="margin-top: 0.75rem;">
+        JavaScript đóng vai trò là xương sống trong việc xây dựng các tính năng thương mại điện tử tương tác cao như: kiểm tra hợp lệ dữ liệu biểu mẫu (form validation), cập nhật giỏ hàng theo thời gian thực (AJAX), bộ lọc và xem chi tiết sản phẩm tức thì, cũng như các hiệu ứng hoạt ảnh trực quan giúp thu hút khách hàng.
+      </p>
+    </section>
+
+    <!-- 3.3 Danh sách và liên kết đến các bài Lab -->
+    <section class="section">
+      <h2 class="section-title">🚀 Danh sách 03 bài Lab thực hành</h2>
+      <div class="labs-grid">
+        
+        <!-- Lab 08 Card -->
+        <div class="lab-card">
+          <div>
+            <span class="lab-tag">Cơ bản</span>
+            <h3>Lab 08 – Language Foundations</h3>
+            <p>Khám phá cú pháp cơ bản, biến, kiểu dữ liệu, hàm, mảng, object, xử lý String, Date, Math và làm việc với Browser Console.</p>
+          </div>
+          <div class="lab-links">
+            <a href="ch08-lab-start-master/lab08-walkthrough02.html" target="_blank" class="btn-lab">Câu 02</a>
+            <a href="ch08-lab-start-master/lab08-walkthrough03.html" target="_blank" class="btn-lab">Câu 03</a>
+            <a href="ch08-lab-start-master/lab08-walkthrough04.html" target="_blank" class="btn-lab">Câu 04</a>
+            <a href="ch08-lab-start-master/lab08-walkthrough05.html" target="_blank" class="btn-lab">Câu 05</a>
+            <a href="ch08-lab-start-master/lab08-walkthrough06.html" target="_blank" class="btn-lab">Câu 06</a>
+            <a href="ch08-lab-start-master/lab08-walkthrough07.html" target="_blank" class="btn-lab">Câu 07</a>
+            <a href="ch08-lab-start-master/lab08-walkthrough08.html" target="_blank" class="btn-lab">Câu 08</a>
+            <a href="ch08-lab-start-master/lab08-walkthrough09.html" target="_blank" class="btn-lab">Câu 09</a>
+            <a href="ch08-lab-start-master/lab08-walkthrough10.html" target="_blank" class="btn-lab">Câu 10</a>
+            <a href="ch08-lab-start-master/lab08-walkthrough11.html" target="_blank" class="btn-lab">Câu 11</a>
+            <a href="ch08-lab-start-master/exercise.html" target="_blank" class="btn-lab btn-exercise">Bài tập tổng hợp (Exercise) &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Lab 09 Card -->
+        <div class="lab-card">
+          <div>
+            <span class="lab-tag">DOM & Events</span>
+            <h3>Lab 09 – DOM and Events</h3>
+            <p>Truy xuất và thao tác các phần tử HTML qua DOM, bắt sự kiện click, mouseover, tạo và thêm động phần tử, kiểm tra hợp lệ Form.</p>
+          </div>
+          <div class="lab-links">
+            <a href="ch09-lab-start-master/lab09-walkthrough01.html" target="_blank" class="btn-lab">Câu 01</a>
+            <a href="ch09-lab-start-master/lab09-walkthrough02.html" target="_blank" class="btn-lab">Câu 02</a>
+            <a href="ch09-lab-start-master/lab09-walkthrough03.html" target="_blank" class="btn-lab">Câu 03</a>
+            <a href="ch09-lab-start-master/lab09-walkthrough04.html" target="_blank" class="btn-lab">Câu 04</a>
+            <a href="ch09-lab-start-master/lab09-walkthrough05.html" target="_blank" class="btn-lab">Câu 05</a>
+            <a href="ch09-lab-start-master/lab09-walkthrough06.html" target="_blank" class="btn-lab">Câu 06</a>
+            <a href="ch09-lab-start-master/lab09-walkthrough07.html" target="_blank" class="btn-lab">Câu 07</a>
+            <a href="ch09-lab-start-master/lab09-walkthrough08.html" target="_blank" class="btn-lab">Câu 08</a>
+            <a href="ch09-lab-start-master/exercise.html" target="_blank" class="btn-lab btn-exercise">Bài tập tổng hợp (Exercise) &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Lab 10 Card -->
+        <div class="lab-card">
+          <div>
+            <span class="lab-tag">Thư viện</span>
+            <h3>Lab 10 – JavaScript 3: jQuery</h3>
+            <p>Sử dụng bộ chọn jQuery Selectors, thao tác DOM ngắn gọn, tạo hiệu ứng động mượt mà và gửi yêu cầu bất đồng bộ AJAX.</p>
+          </div>
+          <div class="lab-links">
+            <a href="ch10-lab-start-master/lab10-walkthrough01.html" target="_blank" class="btn-lab">Câu 01</a>
+            <a href="ch10-lab-start-master/lab10-walkthrough03.html" target="_blank" class="btn-lab">Câu 03</a>
+            <a href="ch10-lab-start-master/lab10-walkthrough04.html" target="_blank" class="btn-lab">Câu 04</a>
+            <a href="ch10-lab-start-master/lab10-walkthrough05.html" target="_blank" class="btn-lab">Câu 05</a>
+            <a href="ch10-lab-start-master/lab10-walkthrough06.html" target="_blank" class="btn-lab">Câu 06</a>
+            <a href="ch10-lab-start-master/lab10-walkthrough07.html" target="_blank" class="btn-lab">Câu 07</a>
+            <a href="ch10-lab-start-master/lab10-walkthrough08.html" target="_blank" class="btn-lab">Câu 08</a>
+            <a href="ch10-lab-start-master/lab10-walkthrough09.html" target="_blank" class="btn-lab">Câu 09</a>
+            <a href="ch10-lab-start-master/lab10-walkthrough10.html" target="_blank" class="btn-lab">Câu 10</a>
+            <a href="ch10-lab-start-master/exercise.html" target="_blank" class="btn-lab btn-exercise">Bài tập tổng hợp (Exercise) &rarr;</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3.4 Những kiến thức và kỹ năng đã học được -->
+    <section class="section">
+      <h2 class="section-title">📚 Kiến thức & Kỹ năng đã tích luỹ</h2>
+      
+      <div class="knowledge-item">
+        <h4>Lab 08 – Nền tảng ngôn ngữ JavaScript (Language Foundations)</h4>
+        <ul>
+          <li>Hiểu cách nhúng JavaScript vào HTML (Embedded và External), kiểm soát trạng thái với thẻ <code>&lt;noscript&gt;</code>.</li>
+          <li>Khai báo biến, phân biệt kiểu dữ liệu nguyên thuỷ và đối tượng, phạm vi biến (global vs function scope).</li>
+          <li>Làm việc thuần thục với String, Array, Date, Math, và cấu trúc hàm như đối tượng (first-class functions / anonymous functions).</li>
+          <li>Thao tác với Browser Console (log, warn, error) để debug mã nguồn hiệu quả.</li>
+        </ul>
+      </div>
+
+      <div class="knowledge-item">
+        <h4>Lab 09 – Mô hình DOM và Xử lý sự kiện (DOM and Events)</h4>
+        <ul>
+          <li>Truy xuất các phần tử trang web thông qua các phương thức DOM (getElementById, querySelector...).</li>
+          <li>Thay đổi nội dung, thuộc tính và CSS inline của phần tử theo thời gian thực.</li>
+          <li>Lắng nghe và phản hồi sự kiện người dùng (click, change, hover, submit...).</li>
+          <li>Kiểm tra và xác thực dữ liệu đầu vào trên form (validation) trước khi gửi lên máy chủ.</li>
+        </ul>
+      </div>
+
+      <div class="knowledge-item">
+        <h4>Lab 10 – Lập trình với jQuery</h4>
+        <ul>
+          <li>Tích hợp và sử dụng thư viện jQuery qua CDN hoặc file nội bộ.</li>
+          <li>Sử dụng hệ thống Selectors ngắn gọn, tiện lợi để duyệt và thay đổi DOM.</li>
+          <li>Tạo các hiệu ứng động (fadeIn, fadeOut, slideDown, animate) mượt mà.</li>
+          <li>Gửi các yêu cầu bất đồng bộ GET Requests (AJAX) và xử lý kết quả thông qua jqXHR để tải dữ liệu không cần load lại trang.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 3.5 Tự đánh giá sau khi hoàn thành -->
+    <section class="section">
+      <h2 class="section-title">✍️ Tự đánh giá sau khi hoàn thành</h2>
+      <div class="assessment-box">
+        <p>
+          Qua quá trình hoàn thành 03 bài thực hành JavaScript, em đã củng cố vững chắc tư duy lập trình web phía client. Kỹ thuật quan trọng nhất em lĩnh hội được là cách kết hợp giữa xử lý sự kiện (Event Handling) và thao tác DOM động, giúp trang web tương tác nhạy bén theo từng thao tác của người dùng. Trong 3 bài, em thấy Lab 09 và Lab 10 hữu ích nhất vì giải quyết trực tiếp các bài toán thực tế của một website bán hàng như: kiểm tra tính hợp lệ của giỏ hàng, xác thực form thanh toán, và dùng jQuery/AJAX để tải danh sách sản phẩm nhanh chóng mà không cần tải lại toàn bộ trang. Sau chuỗi bài này, em nhận thấy mình cần tiếp tục rèn luyện sâu hơn về xử lý bất đồng bộ (Promises, Async/Await) và tối ưu hiệu năng để áp dụng vào các dự án thương mại điện tử chuyên nghiệp trong tương lai.
+        </p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2026 - Khoa Hệ thống thông tin kinh doanh, Trường Đại học Kinh tế TP. Hồ Chí Minh (UEH)</p>
+    </footer>
+
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
